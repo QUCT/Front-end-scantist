@@ -37,7 +37,7 @@
 <script lang="ts" >
 import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
-import { cloneDeep, get } from 'lodash';
+import { get } from 'lodash';
 import { ElMessage } from 'element-plus';
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults';
 
