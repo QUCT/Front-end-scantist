@@ -1,7 +1,9 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <!-- <router-link to="/">Home</router-link> | -->
+    <router-link to="/about">About Me|</router-link>
+    <router-link to="/dotaTable">|Dota Table|</router-link>
+     <router-link to="/topPlayer">|Top Player</router-link>
   </nav>
   <router-view/>
 </template>

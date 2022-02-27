@@ -15,6 +15,22 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
   },
+  {
+    path: '/dotaTable',
+    name: 'dotaTable',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/DotaTable.vue'),
+  },
+  {
+    path: '/topPlayer',
+    name: 'topPlayer',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/TopPlayer.vue'),
+  },
 ];
 
 const router = createRouter({
