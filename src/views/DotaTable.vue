@@ -65,10 +65,10 @@ export default class DotaTable extends Vue {
   }
 
   created() {
-    axios.get('/starpapi/dotaTable/rateList').then((res) => {
+    const url = process.env.NODE_ENV === 'development' ? '/starpapi/dotaTable/rateList' : 'http://localhost:8082/dotaTable/rateList';
+    axios.get(url).then((res) => {
       if (get(res, 'data.code') === 0) {
         const data = JSON.parse(get(res, 'data.data.body', '[]'));
-        console.log(data);
         this.totalPage = data?.length;
         this.totalTableData = data.map((ele: any) => ({
           img: `https://api.opendota.com${ele.img}`,

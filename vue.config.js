@@ -9,10 +9,8 @@ module.exports = defineConfig({
         target: 'http://localhost:3000',
         ws: true,
         changeOrigin: true,
-        pathRewrite: { '/starpapi': '' },
+        pathRewrite: { '^/starpapi': '' },
       },
     },
-    // 下边这个， 如果你是本地自己mock 的话用after这个属性，线上环境一定要干掉
-    // after: require("./mock/mock-server.js")
   },
 });

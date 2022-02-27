@@ -44,7 +44,8 @@ export default class DotaTable extends Vue {
   }
 
   created() {
-    axios.get('/starpapi/dotaTable/topPlayer').then((res) => {
+    const url = process.env.NODE_ENV === 'development' ? '/starpapi/dotaTable/topPlayer' : 'http://localhost:8082/dotaTable/topPlayer';
+    axios.get(url).then((res) => {
       if (get(res, 'data.code') === 0) {
         const data = JSON.parse(get(res, 'data.data.body', '[]'));
         this.totalTableData = data.slice(0, 10).map((ele: any, ind: number) => {
