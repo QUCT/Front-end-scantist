@@ -1,13 +1,13 @@
 <template>
   <div class="component-part-1">
     <div style="width: 80%">
-      <el-table :data="tableData" style="width: 100%" v-loading="loading">
-        <el-table-column prop="playerName" label="Player Name" />
-        <el-table-column prop="result" label="Game result in past 20 games" />
+      <el-table :data="totalTableData" style="width: 100%" v-loading="loading">
+        <el-table-column prop="rank" label="Rank" align="center"/>
+        <el-table-column prop="playerName" label="Player Name"  align="center"/>
         <el-table-column label="Game result in past 20 games" align="center">
           <template v-slot="scope">
-            <div style="width: 300px; height: 300px; position: relative">
-              <d3-pie :pieData="scope.row.pieData" :pieId="scope.row.id" />
+            <div style="width: 300px; height: 300px; position: relative;border:solid 1px red">
+              <PieChart :pieData="scope.row.pieData" :pieId="scope.row.id" />
             </div>
           </template>
         </el-table-column>
@@ -35,24 +35,23 @@ interface IPlayerTable {
   },
 })
 export default class DotaTable extends Vue {
-  tableData: Array<IPlayerTable> = [];
-
   totalTableData: Array<IPlayerTable> = [];
 
   loading = true;
 
-  static random(min:number, max:number) {
+  static random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
   created() {
-    axios.get('/topPlayer').then((res) => {
+    axios.get('/starpapi/dotaTable/topPlayer').then((res) => {
       if (get(res, 'data.code') === 0) {
         const data = JSON.parse(get(res, 'data.data.body', '[]'));
-        this.totalTableData = data.map((ele: any) => {
+        this.totalTableData = data.slice(0, 10).map((ele: any, ind: number) => {
           const winRate = DotaTable.random(60, 100);
           return {
             playerName: ele.name,
+            rank: ind + 1,
             pieData: [
               ['Win', winRate],
               ['defeated', 100 - winRate],
@@ -60,7 +59,6 @@ export default class DotaTable extends Vue {
             id: ele.account_id,
           };
         });
-        this.tableData = this.totalTableData.slice(0, 10);
         this.loading = false;
       } else {
         ElMessage({
